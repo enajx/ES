@@ -6,7 +6,4 @@ __pycache__/
 *.pyc
 *.sif
 weights/
-PCA/
-evaluate_for_pca.py
-evaluate_visualize_weights.py
 jobs/
