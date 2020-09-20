@@ -1,6 +1,8 @@
 import gym
 import numpy as np
 
+# https://github.com/openai/baselines/blob/master/baselines/common/atari_wrappers.py
+# https://stable-baselines3.readthedocs.io/en/master/_modules/stable_baselines3/common/atari_wrappers.html
 
 class ScaledFloatFrame(gym.ObservationWrapper):
     def __init__(self, env):
@@ -8,8 +10,7 @@ class ScaledFloatFrame(gym.ObservationWrapper):
         self.observation_space = gym.spaces.Box(low=0, high=1, shape=env.observation_space.shape, dtype=np.float32)
 
     def observation(self, observation):
-        # careful! This undoes the memory optimization, use
-        # with smaller replay buffers only.
+        # This undoes the memory optimization, use with smaller replay buffers only.
         return np.array(observation).astype(np.float32) / 255.0
 
 class FireEpisodicLifeEnv(gym.Wrapper):
@@ -22,8 +23,7 @@ class FireEpisodicLifeEnv(gym.Wrapper):
 
     def step(self, action):
         obs, reward, done, info = self.env.step(action)
-        # check current lives, make loss of life terminal,
-        # then update lives to handle bonus lives
+        # Check current lives, make loss of life terminal then update lives to handle bonus lives
         lives = self.env.unwrapped.ale.lives()
 
         if self.lives > lives > 0:
