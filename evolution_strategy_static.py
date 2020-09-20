@@ -119,7 +119,8 @@ class EvolutionStrategyStatic(object):
 
         std = rewards.std()
         if std == 0:
-            return
+            raise ValueError('Variance should not be zero')
+
 
         rewards = (rewards - rewards.mean()) / std  # Normalize rewards
         for index, w in enumerate(self.weights):
