@@ -132,5 +132,5 @@ def fitness_static(evolved_parameters: np.array, environment : str) -> float:
             
         env.close()
 
-    return max(rew_ep, 0)
-    # return rew_ep
+    return rew_ep
+    # return max(rew_ep, 0)
