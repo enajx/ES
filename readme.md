@@ -8,7 +8,7 @@
 
 </div>
  
-This reposistory contains the code to train agents on any Gym, pyBullet, or MuJoCo environment using an Evolution Strategy (ES) algorithm. It's adapted from [this OpenAI implmentation](https://github.com/openai/evolution-strategies-starter)
+This reposistory contains the code to train agents on any Gym, pyBullet, or MuJoCo environment using an Evolution Strategy (ES) algorithm. It's adapted from [this OpenAI implementation](https://github.com/openai/evolution-strategies-starter)
 of the distributed Evolution-Strategy (ES) introduced in [Evolution Strategies as Scalable Alternative to Reinforcement Learning, Salimans et al. 2017](https://arxiv.org/abs/1703.03864).
 
 This code was used to create the non-plastic baselines for our paper [Meta-Learning through Hebbian Plasticity in Random Networks](https://arxiv.org/abs/2007.02686).
