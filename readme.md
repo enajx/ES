@@ -18,7 +18,7 @@ This code was used to create the non-plastic baselines for our paper [Meta-Learn
 ## How to run   
 
 First, install dependencies. Use `Python >= 3.8`:
-```bash
+```
 # clone project   
 git clone https://github.com/enajx/ES
 
@@ -27,7 +27,7 @@ cd ES
 pip install -r requirements.txt
  ```   
  Next, use `train_static.py` to train an agent. You can train any of OpenAI Gym's or pyBullet environments:
- ```python
+ ```
 
 # train agent to solve the racing car
 python train_static.py --environment CarRacing-v0
@@ -41,7 +41,7 @@ python train_static.py --environment CarRacing-v0 --generations 300 --popsize 20
  Use `python train_static.py --help` to display all the training options:
 
 
- ```python
+```
 
 train_static.py [--environment] [--popsize] [--print_every] [--lr] [--decay] [--sigma] [--generations] [--folder] [--threads]
 
@@ -59,14 +59,14 @@ arguments:
 ```
 
 Once trained, use `evaluate_static.py` to test the evolved agent:
- ```bash
+ ```
 
 python evaluate_static.py --environment CarRacing-v0 --path_weights weights.dat
 
 ```
 
 When running on a headless server some environments will require a virtual display to run -eg. CarRacing-v0-, in this case run:
- ```bash
+ ```
 
 xvfb-run -a -s "-screen 0 1400x900x24 +extension RANDR" -- python train_static.py --environment CarRacing-v0
 
