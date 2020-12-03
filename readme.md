@@ -27,7 +27,7 @@ cd ES
 pip install -r requirements.txt
  ```   
  Next, use `train_static.py` to train an agent. You can train any of OpenAI Gym's or pyBullet environments:
- ```bash
+ ```python
 
 # train agent to solve the racing car
 python train_static.py --environment CarRacing-v0
@@ -41,7 +41,7 @@ python train_static.py --environment CarRacing-v0 --generations 300 --popsize 20
  Use `python train_static.py --help` to display all the training options:
 
 
- ```bash
+ ```python
 
 train_static.py [--environment] [--popsize] [--print_every] [--lr] [--decay] [--sigma] [--generations] [--folder] [--threads]
 
@@ -76,7 +76,7 @@ xvfb-run -a -s "-screen 0 1400x900x24 +extension RANDR" -- python train_static.p
 
 If you use the code for academic or commecial use, please cite the associated paper:
 
-```
+```bibtex
 
 @inproceedings{Najarro2020,
 	title = {{Meta-Learning through Hebbian Plasticity in Random Networks}},
