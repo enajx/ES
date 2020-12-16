@@ -54,14 +54,11 @@ class EvolutionStrategyStatic(object):
         
     def _get_weights_try(self, w, p):
         
-        if self.SIGMA != 0:
-            weights_try = []
-            for index, i in enumerate(p):
-                jittered = self.SIGMA * i
-                weights_try.append(w[index] + jittered)
-            weights_try = np.array(weights_try)
-        elif self.SIGMA == 0:
-            weights_try = np.array(p)
+        weights_try = []
+        for index, i in enumerate(p):
+            jittered = np.float32(self.SIGMA * i)
+            weights_try.append(w[index] + jittered)
+        weights_try = np.array(weights_try)
 
         return weights_try   # weights_try[i] = w[i] + sigma * p[i]
  
@@ -96,7 +93,7 @@ class EvolutionStrategyStatic(object):
                 weights_try1 = []
 
                 for index, i in enumerate(p):
-                    jittered = self.SIGMA * i
+                    jittered = np.float32(self.SIGMA * i)
                     weights_try1.append(self.weights[index] + jittered)
                 weights_try = np.array(weights_try1)
                 worker_args.append( (self.get_reward, weights_try, self.environment) )
