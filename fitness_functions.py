@@ -111,20 +111,18 @@ def fitness_static(evolved_parameters: np.array, environment : str) -> float:
             if pixel_env: observation = np.swapaxes(observation,0,2) #(3, 84, 84)
                                        
             # Early stopping conditions
-            # if environment == 'CarRacing-v0':
-            #     neg_count = neg_count+1 if reward < 0.0 else 0
-            #     if (done or neg_count > 20):
-            #         break
-            # elif environment[-12:-6] == 'Bullet':
-            #     if t > 200:
-            #         neg_count = neg_count+1 if reward < 0.0 else 0
-            #         if (done or neg_count > 30):
-            #             break
-            # else:
-            #     if done:
-            #         break
-            if t == 999:
-                break
+            if environment == 'CarRacing-v0':
+                neg_count = neg_count+1 if reward < 0.0 else 0
+                if (done or neg_count > 20):
+                    break
+            elif environment[-12:-6] == 'Bullet':
+                if t > 200:
+                    neg_count = neg_count+1 if reward < 0.0 else 0
+                    if (done or neg_count > 30):
+                        break
+            else:
+                if done:
+                    break
             # else:
             #     neg_count = neg_count+1 if reward < 0.0 else 0
             #     if (done or neg_count > 50):
