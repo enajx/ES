@@ -32,7 +32,7 @@ def worker_process(arg):
     get_reward_func, weights, env = arg
     
     wp = np.array(weights)
-    decay = - 0.01 * np.mean(wp**2) 
+    decay = -0.01 * np.mean(wp**2)
     r = get_reward_func(weights, env) + decay
 
     return r 
@@ -44,7 +44,7 @@ class EvolutionStrategyStatic(object):
         self.weights = weights
         self.environment = environment
         self.POPULATION_SIZE = population_size
-        self.SIGMA = sigma
+        self.SIGMA = np.float32(sigma)
         self.learning_rate = learning_rate
         self.decay = decay
         self.num_threads = mp.cpu_count() if num_threads == -1 else num_threads
@@ -54,13 +54,14 @@ class EvolutionStrategyStatic(object):
         
     def _get_weights_try(self, w, p):
         
-        weights_try = []
-        for index, i in enumerate(p):
-            jittered = np.float32(self.SIGMA * i)
-            weights_try.append(w[index] + jittered)
-        weights_try = np.array(weights_try)
-
-        return weights_try   # weights_try[i] = w[i] + sigma * p[i]
+        # weights_try = []
+        # for index, i in enumerate(p):
+        #     jittered = np.float32(self.SIGMA * i)
+        #     weights_try.append(w[index] + jittered)
+        # weights_try = np.array(weights_try)
+        # return weights_try   # weights_try[i] = w[i] + sigma * p[i]
+        
+        return w + p*self.SIGMA
  
     def get_weights(self):
         return self.weights
@@ -78,7 +79,7 @@ class EvolutionStrategyStatic(object):
             population.append(x)
             population.append(x2)
             
-        population = np.array(population)
+        population = np.array(population).astype(np.float32)
 
         return population    # [[w_i... w_92000], [w_j... w_92000], [...], ...]
 
@@ -93,12 +94,18 @@ class EvolutionStrategyStatic(object):
                 weights_try1 = []
 
                 for index, i in enumerate(p):
-                    jittered = np.float32(self.SIGMA * i)
+                    jittered = self.SIGMA * i
                     weights_try1.append(self.weights[index] + jittered)
-                weights_try = np.array(weights_try1)
+                weights_try = np.array(weights_try1).astype(np.float32)
                 worker_args.append( (self.get_reward, weights_try, self.environment) )
                 
             rewards  = pool.map(worker_process, worker_args)
+            
+            # worker_args = []
+            # jittered = self.SIGMA * population
+            # for i in range(len(population)):
+            #     worker_args.append( (self.get_reward, self.weights + jittered[i], self.environment) )
+            # rewards  = pool.map(worker_process, worker_args)
             
         # Single-core
         else:
@@ -106,7 +113,7 @@ class EvolutionStrategyStatic(object):
             for p in population:
                 weights_try = np.array(self._get_weights_try(self.weights, p))   # weights_try[i] = self.weights[i] + sigma * p[i]
                 rewards.append(self.get_reward(weights_try, self.environment))
-        rewards = np.array(rewards)
+        rewards = np.array(rewards).astype(np.float32)
 
         return rewards
 
