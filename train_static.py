@@ -18,8 +18,9 @@ gym.logger.set_level(40)
 def main(argv):
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('--environment', type=str, default='CarRacing-v0', metavar='', help='Environment: any OpenAI Gym or pyBullet environment may be used')
-    parser.add_argument('--popsize', type=int,  default = 200, metavar='', help='Population size.') 
+    parser.add_argument('--environment', type=str, default='LunarLander-v2', metavar='', help='Environment: any OpenAI Gym or pyBullet environment may be used')
+    # parser.add_argument('--environment', type=str, default='CarRacing-v0', metavar='', help='Environment: any OpenAI Gym or pyBullet environment may be used')
+    parser.add_argument('--popsize', type=int,  default = 32, metavar='', help='Population size.') 
     parser.add_argument('--print_every', type=int, default = 1, metavar='', help='Print and save every N steps.') 
     parser.add_argument('--lr', type=float,  default = 0.2, metavar='', help='ES learning rate.') 
     parser.add_argument('--decay', type=float,  default = 0.995, metavar='', help='ES decay.')  

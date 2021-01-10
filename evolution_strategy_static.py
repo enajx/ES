@@ -160,9 +160,11 @@ class EvolutionStrategyStatic(object):
             self._update_weights(rewards, population)           # Updates self.weights : Steps 8->12 
 
             if (iteration + 1) % print_step == 0:
-                rew_ = self.get_reward(self.weights, self.environment)
+                rew_ = rewards.mean()
                 print('iter %4i | reward: %3i |  update_factor: %f  lr: %f | sum_w: %i sum_abs_w: %i' % ( iteration + 1, rew_ , self.update_factor, self.learning_rate, int(np.sum(self.weights)) ,int(np.sum(abs(self.weights))) ), flush=True)
-                torch.save(self.get_weights(), path + "/"+ id_ + "/" + self.environment + "__rew_" + str(int(rew_)) + "__pop_" + str(self.POPULATION_SIZE) + "__{}.dat".format(iteration))  
+                
+                if rew_ > 100:
+                    torch.save(self.get_weights(), path + "/"+ id_ + "/" + self.environment + "__rew_" + str(int(rew_)) + "__pop_" + str(self.POPULATION_SIZE) + "__{}.dat".format(iteration))  
 
                 generations_rewards.append(rew_)
                 np.save(path + "/"+ id_ + '/Fitness_values_' + id_ + '_' + self.environment + '.npy', np.array(generations_rewards))
